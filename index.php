@@ -40,6 +40,10 @@
 
   ];
 
+  // var_dump($_GET);
+
+  
+
 ?>
 
 <!DOCTYPE html>
@@ -58,7 +62,31 @@
 
   <div class="container-xl mx-auto mt-5">
 
-    <table class="table">
+    <h1>PHP Hotel</h1>
+
+    <form action="./index.php" method="GET" class="d-flex align-items-center mb-5">
+
+      <div class="form-check me-3">
+        <input class="form-check-input" type="radio" name="parking" value="no" checked>
+        <label class="form-check-label">Senza parcheggio</label>
+      </div>
+
+      <div class="form-check me-5">
+        <input class="form-check-input" type="radio" name="parking" value="yes">
+        <label class="form-check-label">Con parcheggio</label>
+      </div>
+
+      <div class="d-flex align-items-center me-5">
+        <label class="form-label me-2 mb-0">Voto</label>
+        <input type="number" class="form-control" name="vote">
+      </div>
+
+      <button type="submit" class="btn btn-primary me-2">Cerca</button>
+      <button class="btn btn-secondary">Annulla</button>
+
+    </form>
+
+    <table class="table table-dark table-striped">
 
       <thead>
         <tr>
@@ -77,8 +105,8 @@
         foreach($hotels as $hotel) {
           echo "<tr>";
           foreach($hotel as $key => $value) {
-            if($key === 'parking' && $value === true) $value = 'si';
-            else if($key === 'parking' && $value === false) $value = 'no';
+            if($key === 'parking' && $value === true) $value = 'SI';
+            else if($key === 'parking' && $value === false) $value = 'NO';
             echo "<td>$value</td>";
           }
           echo "</tr>";
