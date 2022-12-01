@@ -40,13 +40,17 @@
 
   ];
 
-  // var_dump($_GET);
+  
 
   $data = $_GET;
 
   var_dump($data);
 
-  if($data['parking'] === 'false' && $data['vote'] === '') {
+  if(empty($data)) {
+    $filter_hotels = $hotels;
+  }
+  
+  else if($data['parking'] === 'false' && $data['vote'] === '') {
     $filter_hotels = $hotels;
   }
 
