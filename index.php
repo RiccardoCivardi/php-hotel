@@ -42,7 +42,38 @@
 
   // var_dump($_GET);
 
+  $data = $_GET;
+
+  var_dump($data);
+
+  if($data['parking'] === 'false' && $data['vote'] === '') {
+    $filter_hotels = $hotels;
+  }
+
+  else if ($data['parking'] === 'false' && $data['vote'] != '') {
+    foreach($hotels as $hotel) {
+      if($hotel['vote'] >= $data['vote']){
+        $filter_hotels[] = $hotel;
+      }
+    }
+  }
   
+  else if ($data['parking'] === 'true' && $data['vote'] === '') {
+    foreach($hotels as $hotel) {
+      if($hotel['parking'] === true){
+        $filter_hotels[] = $hotel;
+      }
+    }
+  }
+
+  else if ($data['parking'] === 'true' && $data['vote'] != '') {
+    foreach($hotels as $hotel) {
+      if($hotel['parking'] === true && $hotel['vote'] >= $data['vote']){
+        $filter_hotels[] = $hotel;
+      }
+    }
+  }
+
 
 ?>
 
@@ -67,12 +98,12 @@
     <form action="./index.php" method="GET" class="d-flex align-items-center mb-5">
 
       <div class="form-check me-3">
-        <input class="form-check-input" type="radio" name="parking" value="no" checked>
+        <input class="form-check-input" type="radio" name="parking" value="false" checked>
         <label class="form-check-label">Senza parcheggio</label>
       </div>
 
       <div class="form-check me-5">
-        <input class="form-check-input" type="radio" name="parking" value="yes">
+        <input class="form-check-input" type="radio" name="parking" value="true">
         <label class="form-check-label">Con parcheggio</label>
       </div>
 
@@ -82,7 +113,7 @@
       </div>
 
       <button type="submit" class="btn btn-primary me-2">Cerca</button>
-      <button class="btn btn-secondary">Annulla</button>
+      <button type="reset" class="btn btn-secondary">Annulla</button>
 
     </form>
 
@@ -102,7 +133,7 @@
 
         <?php 
 
-        foreach($hotels as $hotel) {
+        foreach($filter_hotels as $hotel) {
           echo "<tr>";
           foreach($hotel as $key => $value) {
             if($key === 'parking' && $value === true) $value = 'SI';
