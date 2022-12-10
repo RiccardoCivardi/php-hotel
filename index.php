@@ -46,37 +46,49 @@
 
   var_dump($data);
 
-  if(empty($data)) {
-    $filter_hotels = $hotels;
-  }
+  // if(empty($data)) {
+  //   $filter_hotels = $hotels;
+  // }
   
-  else if($data['parking'] === 'false' && $data['vote'] === '') {
-    $filter_hotels = $hotels;
+  // else if($data['parking'] === 'false' && $data['vote'] === '') {
+  //   $filter_hotels = $hotels;
+  // }
+
+  // else if ($data['parking'] === 'false' && $data['vote'] != '') {
+  //   foreach($hotels as $hotel) {
+  //     if($hotel['vote'] >= $data['vote']){
+  //       $filter_hotels[] = $hotel;
+  //     }
+  //   }
+  // }
+  
+  // else if ($data['parking'] === 'true' && $data['vote'] === '') {
+  //   foreach($hotels as $hotel) {
+  //     if($hotel['parking'] === true){
+  //       $filter_hotels[] = $hotel;
+  //     }
+  //   }
+  // }
+
+  // else if ($data['parking'] === 'true' && $data['vote'] != '') {
+  //   foreach($hotels as $hotel) {
+  //     if($hotel['parking'] === true && $hotel['vote'] >= $data['vote']){
+  //       $filter_hotels[] = $hotel;
+  //     }
+  //   }
+  // }
+
+  // Logica con array filter
+  $filter_hotels = $hotels;
+
+  if(!empty($data['parking']) || (isset($data['parking']) && empty($data['parking']) )) {
+    $filter_hotels = array_filter($filter_hotels, fn($hotel) => $hotel['parking'] == $data['parking']); 
   }
 
-  else if ($data['parking'] === 'false' && $data['vote'] != '') {
-    foreach($hotels as $hotel) {
-      if($hotel['vote'] >= $data['vote']){
-        $filter_hotels[] = $hotel;
-      }
-    }
-  }
-  
-  else if ($data['parking'] === 'true' && $data['vote'] === '') {
-    foreach($hotels as $hotel) {
-      if($hotel['parking'] === true){
-        $filter_hotels[] = $hotel;
-      }
-    }
+  if(isset($data['vote']) && !empty($data['vote'])) {
+    $filter_hotels = array_filter($filter_hotels, fn($hotel) => $hotel['vote'] >= $data['vote']);
   }
 
-  else if ($data['parking'] === 'true' && $data['vote'] != '') {
-    foreach($hotels as $hotel) {
-      if($hotel['parking'] === true && $hotel['vote'] >= $data['vote']){
-        $filter_hotels[] = $hotel;
-      }
-    }
-  }
 
 
 ?>
@@ -102,12 +114,12 @@
     <form action="./index.php" method="GET" class="d-flex align-items-center mb-5">
 
       <div class="form-check me-3">
-        <input class="form-check-input" type="radio" name="parking" value="false" checked>
+        <input class="form-check-input" type="radio" name="parking" value="">
         <label class="form-check-label">Senza parcheggio</label>
       </div>
 
       <div class="form-check me-5">
-        <input class="form-check-input" type="radio" name="parking" value="true">
+        <input class="form-check-input" type="radio" name="parking" value="1">
         <label class="form-check-label">Con parcheggio</label>
       </div>
 
