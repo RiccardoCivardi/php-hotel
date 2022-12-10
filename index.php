@@ -44,7 +44,7 @@
 
   $data = $_GET;
 
-  var_dump($data);
+  // var_dump($data);
 
   // if(empty($data)) {
   //   $filter_hotels = $hotels;
